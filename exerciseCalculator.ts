@@ -2,20 +2,20 @@ interface CalcValues {
   periodLength: number;
   trainingDays: number;
   success: boolean;
-  rating: number;
-  ratingDescription: string;
+  rating: number | undefined;
+  ratingDescription: string | undefined;
   target: number;
   average: number;
 }
 
-const calculateExercises = (args: Array<string>): CalcValues => {
-  console.log('args.length', args.length)
-  console.log('args.[2}', args[2])
+export const calculateExercises = (args: Array<string>): CalcValues => {
+  console.log('args.length', args.length);
+  console.log('args.[2}', args[2]);
   if (args.length < 4) throw new Error('not enough arguments');
 
-  const argsNumbers = args.slice(3).map((arg) => Number(arg))
-  console.log('argsNumbers', argsNumbers)
-  console.log('argsNumbers.length', argsNumbers.length)
+  const argsNumbers = args.slice(3).map((arg) => Number(arg));
+  console.log('argsNumbers', argsNumbers);
+  console.log('argsNumbers.length', argsNumbers.length);
 
   const target = Number(args[2]);
   const periodLength = argsNumbers.length;
@@ -23,12 +23,12 @@ const calculateExercises = (args: Array<string>): CalcValues => {
   const success = trainingDays >= target;
   const average =
     argsNumbers.reduce((acc, curr) => {
-      return acc + curr
+      return acc + curr;
     }, 0) / periodLength;
 
   const rating = () => {
     const deduction = trainingDays - target;
-    console.log('deduction', deduction)
+    console.log('deduction', deduction);
 
     if (deduction < 0) {
       return 1;
@@ -37,6 +37,8 @@ const calculateExercises = (args: Array<string>): CalcValues => {
     } else if (deduction > 0) {
       return 3;
     }
+
+    return;
   };
 
   const ratingDescription = () => {
@@ -48,6 +50,8 @@ const calculateExercises = (args: Array<string>): CalcValues => {
     } else if (r === 3) {
       return 'You exceeded your goal, excellent!';
     }
+
+    return;
   };
 
   const result = {
@@ -61,5 +65,3 @@ const calculateExercises = (args: Array<string>): CalcValues => {
   };
   return result;
 };
-
-console.log(calculateExercises(process.argv))
